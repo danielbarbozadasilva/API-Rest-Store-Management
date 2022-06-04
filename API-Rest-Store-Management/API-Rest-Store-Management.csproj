@@ -12,12 +12,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\API_Rest_Store_Management.Core\API_Rest_Store_Management.Core.csproj" />
-		<ProjectReference Include="..\API_Rest_Store_Management.Data\API_Rest_Store_Management.Data.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\API-Rest-Store-Management.Core\API-Rest-Store-Management.Core.csproj" />
+    <ProjectReference Include="..\API-Rest-Store-Management.Data\API-Rest-Store-Management.Data.csproj" />
+  </ItemGroup>
 
 </Project>
