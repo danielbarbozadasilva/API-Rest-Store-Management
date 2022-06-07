@@ -86,5 +86,29 @@ namespace API_Rest_Store_Management.Controller
 
             return NoContent();
         }
+
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (id < 1)
+            {
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteProduct)}");
+                return BadRequest();
+            }
+            var product = await _unitOfWork.Products.Get(q => q.Id == id);
+            if (product == null)
+            {
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteProduct)}");
+                return BadRequest("Submitted data is invalid");
+            }
+            await _unitOfWork.Products.Delete(id);
+            await _unitOfWork.Save();
+            return NoContent();
+
+        }
     }
 }
