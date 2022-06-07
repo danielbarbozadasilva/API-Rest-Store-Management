@@ -6,11 +6,17 @@ namespace API_Rest_Store_Management.Core.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DatabaseContext _context;
+        private IGenericRepository<Product> _products;
+        private IGenericRepository<Store> _stores;
+
 
         public UnitOfWork(DatabaseContext context)
         {
             _context = context;
         }
+
+        public IGenericRepository<Product> Products => _products ??= new GenericRepository<Product>(_context);
+        public IGenericRepository<Store> Stores => _stores ??= new GenericRepository<Store>(_context);
 
         public void Dispose()
         {
