@@ -30,5 +30,15 @@ namespace API_Rest_Store_Management.Controller
             var result = _mapper.Map<IList<ProductDTO>>(products);
             return Ok(result);
         }
+
+        [HttpGet("{id:int}", Name = "GetProduct")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var product = await _unitOfWork.Products.Get(q => q.Id == id);
+            var result = _mapper.Map<ProductDTO>(product);
+            return Ok(result);
+        }
     }
 }
