@@ -58,7 +58,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StoreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -231,8 +231,8 @@ namespace API_Rest_Store_Management.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4f65a75d-806f-48df-b9bb-3fb1e3827040", "583dd0ff-2fc1-4b9f-9571-e8a2694835e1", "User", "USER" },
-                    { "828ea046-7b1b-4861-ba7c-1ca96d0b058f", "74bfa47c-7e97-4d2f-9e85-505000f68a72", "Administrator", "ADMINISTRATOR" }
+                    { "5a4e80a5-994f-4d83-981d-35903bbd75b6", "96c93bd9-5e65-4f32-8d7d-f71857f07de7", "Administrator", "ADMINISTRATOR" },
+                    { "904710a2-ac0a-4405-b5f7-aed5ee3892b5", "f27ec515-705d-4699-8d20-54e1f822d3e5", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -240,9 +240,9 @@ namespace API_Rest_Store_Management.Data.Migrations
                 columns: new[] { "Id", "Description", "Name", "Price", "StoreId" },
                 values: new object[,]
                 {
-                    { 1, "Modelo HG132", "Teclado Dell", 101.90000000000001, 1 },
-                    { 2, "Modelo HA212", "Mouse Dell", 59.899999999999999, 2 },
-                    { 3, "Modelo ACE12", "Monitor Dell", 345.89999999999998, 3 }
+                    { 1, "Modelo HG132", "Teclado Dell", 101.90m, 1 },
+                    { 2, "Modelo HA212", "Mouse Dell", 59.90m, 2 },
+                    { 3, "Modelo ACE12", "Monitor Dell", 345.90m, 3 }
                 });
 
             migrationBuilder.InsertData(

@@ -13,7 +13,7 @@ namespace API_Rest_Store_Management.Data.Configurations.Entities
                     Id = 1,
                     Name = "Teclado Dell",
                     Description = "Modelo HG132",
-                    Price = 101.90,
+                    Price = 101.90M,
                     StoreId = 1
                 },
                 new Product
@@ -21,7 +21,7 @@ namespace API_Rest_Store_Management.Data.Configurations.Entities
                     Id = 2,
                     Name = "Mouse Dell",
                     Description = "Modelo HA212",
-                    Price = 59.90,
+                    Price = 59.90M,
                     StoreId = 2
 
                 },
@@ -30,7 +30,7 @@ namespace API_Rest_Store_Management.Data.Configurations.Entities
                     Id = 3,
                     Name = "Monitor Dell",
                     Description = "Modelo ACE12",
-                    Price = 345.90,
+                    Price = 345.90M,
                     StoreId = 3
                 }
             );

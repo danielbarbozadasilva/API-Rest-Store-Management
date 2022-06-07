@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Rest_Store_Management.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220605231314_SeedingData")]
-    partial class SeedingData
+    [Migration("20220607224924_Fres-ition")]
+    partial class Fresition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,8 +113,8 @@ namespace API_Rest_Store_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -129,7 +129,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 1,
                             Description = "Modelo HG132",
                             Name = "Teclado Dell",
-                            Price = 101.90000000000001,
+                            Price = 101.90m,
                             StoreId = 1
                         },
                         new
@@ -137,7 +137,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 2,
                             Description = "Modelo HA212",
                             Name = "Mouse Dell",
-                            Price = 59.899999999999999,
+                            Price = 59.90m,
                             StoreId = 2
                         },
                         new
@@ -145,7 +145,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 3,
                             Description = "Modelo ACE12",
                             Name = "Monitor Dell",
-                            Price = 345.89999999999998,
+                            Price = 345.90m,
                             StoreId = 3
                         });
                 });
@@ -271,15 +271,15 @@ namespace API_Rest_Store_Management.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4f65a75d-806f-48df-b9bb-3fb1e3827040",
-                            ConcurrencyStamp = "583dd0ff-2fc1-4b9f-9571-e8a2694835e1",
+                            Id = "747afd85-7cca-4d2d-8f6f-4626e0d14c74",
+                            ConcurrencyStamp = "9a77b25a-5b64-4de3-92fc-be46dabcf64b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "828ea046-7b1b-4861-ba7c-1ca96d0b058f",
-                            ConcurrencyStamp = "74bfa47c-7e97-4d2f-9e85-505000f68a72",
+                            Id = "67ead17c-4733-419c-8186-cdf9060ef788",
+                            ConcurrencyStamp = "187a74e1-3c81-48e0-b52e-c482eb5cb54a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Rest_Store_Management.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220606002701_AddedIdentity")]
-    partial class AddedIdentity
+    [Migration("20220607224935_Fresh-Migration")]
+    partial class FreshMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,8 +113,8 @@ namespace API_Rest_Store_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -129,7 +129,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 1,
                             Description = "Modelo HG132",
                             Name = "Teclado Dell",
-                            Price = 101.90000000000001,
+                            Price = 101.90m,
                             StoreId = 1
                         },
                         new
@@ -137,7 +137,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 2,
                             Description = "Modelo HA212",
                             Name = "Mouse Dell",
-                            Price = 59.899999999999999,
+                            Price = 59.90m,
                             StoreId = 2
                         },
                         new
@@ -145,7 +145,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 3,
                             Description = "Modelo ACE12",
                             Name = "Monitor Dell",
-                            Price = 345.89999999999998,
+                            Price = 345.90m,
                             StoreId = 3
                         });
                 });
@@ -271,15 +271,15 @@ namespace API_Rest_Store_Management.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fd00ec86-9c77-4bcc-b3e3-000761627c31",
-                            ConcurrencyStamp = "ecdafc6b-37c6-4e2f-a6fa-cf61dd481511",
+                            Id = "81035880-7062-44bf-aff5-f07a604a5191",
+                            ConcurrencyStamp = "b28096a8-2102-430b-a1c8-22ab9ee1a191",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "77a025f6-ee80-4cc8-8058-d22745416d5c",
-                            ConcurrencyStamp = "9ce38d13-c2ee-49b7-b496-e5b5c910b771",
+                            Id = "d5ad504a-81c8-4d28-b2cf-570857fab1fb",
+                            ConcurrencyStamp = "c95cc3d4-7b0b-479d-912c-28ec98c2db92",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

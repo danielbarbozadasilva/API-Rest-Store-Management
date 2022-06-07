@@ -111,8 +111,8 @@ namespace API_Rest_Store_Management.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -127,7 +127,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 1,
                             Description = "Modelo HG132",
                             Name = "Teclado Dell",
-                            Price = 101.90000000000001,
+                            Price = 101.90m,
                             StoreId = 1
                         },
                         new
@@ -135,7 +135,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 2,
                             Description = "Modelo HA212",
                             Name = "Mouse Dell",
-                            Price = 59.899999999999999,
+                            Price = 59.90m,
                             StoreId = 2
                         },
                         new
@@ -143,7 +143,7 @@ namespace API_Rest_Store_Management.Data.Migrations
                             Id = 3,
                             Description = "Modelo ACE12",
                             Name = "Monitor Dell",
-                            Price = 345.89999999999998,
+                            Price = 345.90m,
                             StoreId = 3
                         });
                 });
@@ -269,15 +269,15 @@ namespace API_Rest_Store_Management.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f9ffae5-3410-4a63-b6eb-b33fd74d1970",
-                            ConcurrencyStamp = "e1bf12b4-c185-4fdf-b978-be65ad28dd98",
+                            Id = "81035880-7062-44bf-aff5-f07a604a5191",
+                            ConcurrencyStamp = "b28096a8-2102-430b-a1c8-22ab9ee1a191",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "c5268555-7004-45b1-a587-8f76f454fd23",
-                            ConcurrencyStamp = "49fa5caa-4e6a-4848-8d59-399f323b5bda",
+                            Id = "d5ad504a-81c8-4d28-b2cf-570857fab1fb",
+                            ConcurrencyStamp = "c95cc3d4-7b0b-479d-912c-28ec98c2db92",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
