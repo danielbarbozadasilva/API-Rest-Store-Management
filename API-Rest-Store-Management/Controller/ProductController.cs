@@ -60,5 +60,31 @@ namespace API_Rest_Store_Management.Controller
 
             return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
         }
+
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductDTO productDTO)
+        {
+            if (!ModelState.IsValid || id < 1)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateProduct)}");
+                return BadRequest(ModelState);
+            }
+
+            var product = await _unitOfWork.Products.Get(q => q.Id == id);
+            if (product == null)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateProduct)}");
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(productDTO, product);
+            _unitOfWork.Products.Update(product);
+            await _unitOfWork.Save();
+
+            return NoContent();
+        }
     }
 }
