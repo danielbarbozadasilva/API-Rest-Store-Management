@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "HotelListing": {
+    "API_Rest_Store_Management": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
