@@ -90,6 +90,16 @@ namespace API_Rest_Store_Management.Controllers
                 return Problem($"Something Went Wrong in the {nameof(Login)}", statusCode: 500);
             }
         }
-
+        [HttpPost]
+        [Route("refreshtoken")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequest request)
+        {
+            var tokenRequest = await _authManager.VerifyRefreshToken(request);
+            if (tokenRequest is null)
+            {
+                return Unauthorized();
+            }
+            return Ok(tokenRequest);
+        }
     }
 }

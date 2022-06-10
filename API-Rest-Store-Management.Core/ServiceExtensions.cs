@@ -25,6 +25,7 @@ namespace API_Rest_Store_Management.Core
             var builder = services.AddIdentityCore<ApiUser>(q => { q.User.RequireUniqueEmail = true; });
 
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), services);
+            builder.AddTokenProvider("APIRestStoreManagement", typeof(DataProtectorTokenProvider<ApiUser>));
             builder.AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
         }
 
