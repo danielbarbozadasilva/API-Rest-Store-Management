@@ -1,10 +1,13 @@
-﻿using API_Rest_Store_Management.Data;
+﻿using API_Rest_Store_Management.Core.DTOs;
+using API_Rest_Store_Management.Core.Models;
+using API_Rest_Store_Management.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 
 namespace API_Rest_Store_Management.Core.Services
 {
@@ -13,7 +16,6 @@ namespace API_Rest_Store_Management.Core.Services
         private readonly UserManager<ApiUser> _userManager;
         private readonly IConfiguration _configuration;
         private ApiUser _user;
-
         public AuthManager(UserManager<ApiUser> userManager,
             IConfiguration configuration)
         {
@@ -49,9 +51,9 @@ namespace API_Rest_Store_Management.Core.Services
         private async Task<List<Claim>> GetClaims()
         {
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, _user.UserName)
-            };
+             {
+                 new Claim(ClaimTypes.Name, _user.UserName)
+             };
 
             var roles = await _userManager.GetRolesAsync(_user);
 
@@ -71,6 +73,41 @@ namespace API_Rest_Store_Management.Core.Services
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
+        public async Task<bool> ValidateUser(LoginUserDTO userDTO)
+        {
+            _user = await _userManager.FindByNameAsync(userDTO.Email);
+            var validPassword = await _userManager.CheckPasswordAsync(_user, userDTO.Password);
+            return (_user != null && validPassword);
+        }
+
+        public async Task<string> CreateRefreshToken()
+        {
+            var x = await _userManager.RemoveAuthenticationTokenAsync(_user, "APIRestStoreManagement", "RefreshToken");
+            var newRefreshToken = await _userManager.GenerateUserTokenAsync(_user, "APIRestStoreManagement", "RefreshToken");
+            var result = await _userManager.SetAuthenticationTokenAsync(_user, "APIRestStoreManagement", "RefreshToken", newRefreshToken);
+            return newRefreshToken;
+        }
+        public async Task<TokenRequest> VerifyRefreshToken(TokenRequest request)
+        {
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenContent = jwtSecurityTokenHandler.ReadJwtToken(request.Token);
+            var username = tokenContent.Claims.ToList().FirstOrDefault(q => q.Type == ClaimTypes.Name)?.Value;
+            _user = await _userManager.FindByNameAsync(username);
+            try
+            {
+                var isValid = await _userManager.VerifyUserTokenAsync(_user, "APIRestStoreManagement", "RefreshToken", request.RefreshToken);
+                if (isValid)
+                {
+                    return new TokenRequest { Token = await CreateToken(), RefreshToken = await CreateRefreshToken() };
+                }
+                await _userManager.UpdateSecurityStampAsync(_user);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return null;
+        }
     }
 
 }
