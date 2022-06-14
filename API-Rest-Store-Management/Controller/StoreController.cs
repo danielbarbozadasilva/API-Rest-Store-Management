@@ -1,6 +1,7 @@
 ﻿using API_Rest_Store_Management.Core.DTOs;
 using API_Rest_Store_Management.Core.IRepository;
 using API_Rest_Store_Management.Core.Models;
+using API_Rest_Store_Management.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace API_Rest_Store_Management.Controller
             return Ok(result);
         }
 
+
         [HttpGet("{id:int}", Name = "GetStore")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -39,6 +41,26 @@ namespace API_Rest_Store_Management.Controller
             var store = await _unitOfWork.Stores.Get(q => q.Id == id);
             var result = _mapper.Map<StoreDTO>(store);
             return Ok(result);
+        }
+
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateStore([FromBody] CreateStoreDTO storeDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid POST attempt in {nameof(CreateStore)}");
+                return BadRequest(ModelState);
+            }
+
+            var store = _mapper.Map<Store>(storeDTO);
+            await _unitOfWork.Stores.Insert(store);
+            await _unitOfWork.Save();
+
+            return CreatedAtRoute("GetStore", new { id = store.Id }, store);
         }
 
 
