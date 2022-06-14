@@ -64,7 +64,31 @@ namespace API_Rest_Store_Management.Controller
         }
 
 
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateStore(int id, [FromBody] UpdateStoreDTO storeDTO)
+        {
+            if (!ModelState.IsValid || id < 1)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateStore)}");
+                return BadRequest(ModelState);
+            }
 
+            var store = await _unitOfWork.Stores.Get(q => q.Id == id);
+            if (store == null)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateStore)}");
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(storeDTO, store);
+            _unitOfWork.Stores.Update(store);
+            await _unitOfWork.Save();
+
+            return NoContent();
+        }
 
     }
 }
