@@ -31,6 +31,18 @@ namespace API_Rest_Store_Management.Controller
             return Ok(result);
         }
 
+        [HttpGet("{id:int}", Name = "GetStore")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetStore(int id)
+        {
+            var store = await _unitOfWork.Stores.Get(q => q.Id == id);
+            var result = _mapper.Map<StoreDTO>(store);
+            return Ok(result);
+        }
+
+
+
 
     }
 }
